@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amha & Arsema — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fffdf8; --ink:#2b2b2b; --muted:#6b6b6b;
+      --gold:#c3a86b; --gold-deep:#a7894d;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+    body{font-family:"Raleway",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6}
+
+    /* Sticky nav */
+    nav.sticky{position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);
+      background:rgba(255,251,243,.7);border-bottom:1px solid rgba(195,168,107,.35)}
+    nav.sticky .inner{max-width:980px;margin:0 auto;display:flex;gap:.25rem;
+      align-items:center;justify-content:space-between;padding:.5rem .75rem}
+    .brand{font-family:"Playfair Display",serif;color:var(--gold-deep);font-weight:700;letter-spacing:.03em}
+    .nav-links{display:flex;flex-wrap:wrap;gap:.25rem}
+    .nav-links a{font-size:.9rem}
+
+    /* ---- HERO IMAGE (no overlaid words) ---- */
+    header.hero-photo{
+      min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:clamp(2rem,5vw,3rem) 1rem clamp(3rem,7vw,4rem);
+      background: radial-gradient(120rem 80rem at 50% -10%, #ffffff 0%, #fff7ea 55%, #f9ebd2 100%);
+      text-align:center;
+    }
+    .hero-photo img{
+      width:min(1100px,92vw);height:auto;display:block;
+      border-radius:18px;box-shadow:0 10px 35px rgba(0,0,0,.06)
+    }
+    .cta-row{margin-top:1.5rem;display:inline-flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
+    .btn{padding:.95rem 1.35rem;border:1.5px solid var(--gold);color:var(--gold-deep);background:#fff;
+      text-decoration:none;border-radius:999px;font-weight:700;letter-spacing:.04em;
+      transition:transform .15s, box-shadow .2s, background .2s, border-color .2s}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08);border-color:var(--gold-deep)}
+    .btn.primary{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+    .btn.primary:hover{background:#8e723f}
+
+    /* Invitation card */
+    section.invite{padding:4rem 1rem 5rem}
+    .card{max-width:920px;margin:0 auto;background:#fff;padding:clamp(1.25rem,4.5vw,3rem);
+      border-radius:18px;box-shadow:0 10px 45px rgba(0,0,0,.08);position:relative}
+    .card::before,.card::after{content:"";position:absolute;inset:18px;border:2px solid var(--gold);
+      border-radius:14px;pointer-events:none}
+    .card::after{inset:28px;border-color:rgba(195,168,107,.55)}
+    .verse{text-align:center;margin:.25rem auto 1.25rem}
+    .verse .title{font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:var(--gold-deep)}
+    .verse .text{font-family:"Libre Baskerville",serif;font-size:14.5px;color:#4b4b4b;letter-spacing:.02em}
+    .names-line{text-align:center;margin:1.25rem 0 1rem;font-family:"Playfair Display",serif;
+      font-size:clamp(28px,4.2vw,48px);color:var(--gold-deep)}
+    .details{text-align:center;max-width:720px;margin:0 auto}
+    .details h3{font-family:"Libre Baskerville",serif;letter-spacing:.08em;color:var(--muted);
+      text-transform:uppercase;font-size:14px;font-weight:700;margin:.5rem 0 1.25rem}
+    .details p{margin:.35rem 0}
+    .mono{letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:#3e3e3e}
+    .hotel{font-variant:small-caps;color:var(--gold-deep);font-weight:700}
+
+    /* Schedule */
+    section.schedule{padding:0 1rem 4rem}
+    .timeline{max-width:920px;margin:.5rem auto 0;display:grid;gap:14px}
+    .slot{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:start;padding:12px 16px;
+      border:1px dashed rgba(195,168,107,.55);border-radius:12px;background:#fff}
+    .slot .t{font-weight:700;color:var(--gold-deep)}
+
+    /* Map */
+    section.map{padding:0 1rem 4.25rem}
+    .mapwrap{max-width:920px;margin:0 auto;border-radius:16px;overflow:hidden;
+      box-shadow:0 10px 35px rgba(0,0,0,.08);border:1px solid rgba(195,168,107,.45)}
+    .mapwrap iframe{display:block;width:100%;height:420px;border:0}
+
+    /* RSVP */
+    section.rsvp{padding:0 1rem 5rem}
+    .panel{max-width:920px;margin:0 auto;background:#fff;border:1px solid rgba(195,168,107,.5);
+      border-radius:16px;padding:1rem;box-shadow:0 10px 35px rgba(0,0,0,.06)}
+    .panel iframe{width:100%;height:720px;border:0}
+
+    footer{padding:2.75rem 1rem 3.5rem;text-align:center;color:var(--muted)}
+    footer .mono{font-size:12px}
+
+    @media (max-width:560px){ .slot{grid-template-columns:1fr} }
+
+    /* ===== MOBILE FIXES (paste at end of your <style>) ===== */
+
+/* General small-screen tweaks */
+@media (max-width: 480px) {
+  /* Compact sticky nav */
+  nav.sticky .inner{
+    flex-direction: column;
+    gap: .5rem;
+    padding: .5rem .75rem .65rem;
+  }
+  .brand{ font-size: 14px; }
+
+  .nav-links a.btn{
+    padding: .6rem 1rem;
+    font-size: .95rem;
+  }
+
+  /* HERO: image-only version */
+  header.hero-photo{
+    min-height: auto;
+    padding: 1.25rem 1rem 2rem;
+  }
+  header.hero-photo img{
+    width: 100%;
+    height: auto;        /* keep aspect ratio */
+    border-radius: 12px; /* slightly smaller corners on mobile */
+  }
+  .cta-row{
+    margin-top: 1rem;
+    gap: .6rem;
+  }
+  .btn{
+    padding: .7rem 1.05rem;
+    font-size: .95rem;
+  }
+
+  /* Invitation card spacing */
+  section.invite{ padding: 2rem 1rem; }
+  .card{ padding: 1.25rem; }
+
+  /* Timeline spacing */
+  .slot{ grid-template-columns: 1fr; gap: 10px; }
+
+  /* Map + RSVP heights */
+  .mapwrap iframe{ height: 300px; }
+  .panel iframe{ height: 600px; }
+}
+
+/* If you're using the BACKGROUND-IMAGE hero instead of <img>, keep this too */
+@media (max-width: 480px) {
+  header.cover.zola{
+    min-height: 80vh;
+    padding: 4rem 1rem 2rem;
+  }
+  .hero .names{ font-size: clamp(36px, 10vw, 64px); }
+  .date-line{ font-size: 12px; letter-spacing: .18em; }
+}
+
+  </style>
+</head>
+<body>
+  <nav class="sticky">
+    <div class="inner">
+      <div class="brand">October 19, 2025 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Toronto, ON</div>
+      <div class="nav-links">
+        <a href="#invite" class="btn">Invitation</a>
+        <a href="#map" class="btn">Map</a>
+        <a href="#rsvp" class="btn primary">RSVP</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO: flower image only -->
+  <header class="hero-photo" id="home">
+    <!-- Change 'wedd.png' to your actual filename if needed -->
+    <img src="wed5.png" alt="Amha Aklilu and Arsema Liyew — October 19, 2025">
+    <div class="cta-row">
+      <a class="btn primary" href="#rsvp">RSVP</a>
+      <a class="btn" href="#invite">Details</a>
+    </div>
+  </header>
+
+  <section class="invite" id="invite">
+    <div class="card">
+      <div class="verse">
+        <div class="title">Glory to God!</div>
+        <div class="text">“So they are no longer two but one flesh. What therefore God has joined together, let not man separate.” — Matthew 19:6</div>
+      </div>
+      <div class="names-line">Amha Aklilu <span class="amp">&amp;</span> Arsema Liyew</div>
+      <div class="details">
+        <h3>Request the honour of your presence at their wedding celebration</h3>
+        <p class="mono">Sunday, October 19, 2025</p>
+        <p class="mono">Ceremony at 2:00 PM</p>
+        <p><span class="hotel">Hotel X</span></p>
+        <p class="mono">111 Princes' Boulevard, Toronto, Ontario</p>
+        <p class="mono">Reception to follow at 5:30 PM</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule">
+    <div style="max-width:920px;margin:0 auto 1rem;font-family:'Playfair Display',serif;color:var(--gold-deep);font-weight:700;font-size:clamp(22px,3.5vw,30px);text-align:left;">Schedule</div>
+    <div class="timeline">
+      <div class="slot"><div class="t">1:30 PM</div><div>Guest arrival &amp; seating</div></div>
+      <div class="slot"><div class="t">2:00 PM</div><div>Ceremony</div></div>
+      <div class="slot"><div class="t">4:00 PM</div><div>Photos &amp; cocktail hour</div></div>
+      <div class="slot"><div class="t">5:30 PM</div><div>Reception</div></div>
+    </div>
+  </section>
+
+  <section class="map" id="map">
+    <div style="max-width:920px;margin:0 auto 1rem;font-family:'Playfair Display',serif;color:var(--gold-deep);font-weight:700;font-size:clamp(22px,3.5vw,30px);text-align:left;">Venue Map</div>
+    <div class="mapwrap">
+      <iframe title="Map to Hotel X" loading="lazy" allowfullscreen src="https://www.google.com/maps?q=Hotel%20X%20Toronto%2C%20111%20Princes'%20Boulevard%2C%20Toronto%20Ontario&output=embed"></iframe>
+    </div>
+  </section>
+
+  <section class="rsvp" id="rsvp">
+    <div style="max-width:920px;margin:0 auto 1rem;font-family:'Playfair Display',serif;color:var(--gold-deep);font-weight:700;font-size:clamp(22px,3.5vw,30px);text-align:left;">RSVP</div>
+    <div class="panel">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSczvbn8LB1iD95OKdXHaml555Bj2zhwPTXurjXnhJSg1IND6w/viewform?embedded=true" width="640" height="657" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>    </div>
+  </section>
+
+  <footer>
+    <div class="mono">With love — Amha &amp; Arsema • 10.19.2025</div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href');
+        if(id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
